@@ -1,6 +1,6 @@
 // ----------------------------------
 // RSDK Project:  Sonic 2 Westside Renovation
-// Script Description:    SSZ Setup Object 
+// Script Description:    WZ Setup Object 
 // Script Author: Twanvanb1
 // ----------------------------------
 
@@ -9,16 +9,14 @@
 // ========================
 
 private alias object.value0 	:	object.PaletteTimer
-private alias object.value1 	:	object.TileTimer
-private alias object.value2 	:	object.TileFrame
-private alias object.value3 	:	object.DeformTimer
+private alias object.value1 	:
+private alias object.value2 	:
+private alias object.value3 	:
 private alias object.value4 	:
 private alias object.value5 	:
 private alias object.value6 	:
 private alias object.value7 	:
 private alias object.value8 	:
-private alias object.value9 	:
-private alias object.value10 	:
 
 // Tracks
 private alias 0 : TRACK_STAGE
@@ -46,22 +44,18 @@ private alias 2 : MUSICEVENT_FLAG_SLOWDOWN
 
 // Music Loops
 
-private alias 293572 : MUSIC_LOOP_SSZ
-private alias 235236 : MUSIC_LOOP_SSZ_F
+private alias 99572 : MUSIC_LOOP_WZ
+private alias 79604 : MUSIC_LOOP_WZ_F
 
 private alias 38679  : MUSIC_LOOP_INV
 private alias 30897  : MUSIC_LOOP_INV_F
-
-// Deformation Layer
-
-private alias 2	:	DEFORM_BG
 
 // ========================
 // Function Declarations
 // ========================
 
-reserve function SSZSetup_SpeedUpMusic
-reserve function SSZSetup_SlowDownMusic
+reserve function WZSetup_SpeedUpMusic
+reserve function WZSetup_SlowDownMusic
 
 // ========================
 // Static Values
@@ -71,15 +65,11 @@ reserve function SSZSetup_SlowDownMusic
 // Tables
 // ========================
 
-private table SSZSetup_AniTileDelay
-	24, 8, 8, 8, 8, 8
-end table
-
 // ========================
 // Function Definitions
 // ========================
 
-private function SSZSetup_SpeedUpMusic
+private function WZSetup_SpeedUpMusic
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -90,18 +80,18 @@ private function SSZSetup_SpeedUpMusic
 		switch music.currentTrack
 		case TRACK_STAGE
 			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
-			SwapMusicTrack("OilOcean_F.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ_F, 8000)
+			SwapMusicTrack("EmeraldHill2_F.ogg", TRACK_STAGE, MUSIC_LOOP_WZ_F, 8000)
 			break
 
 		case TRACK_INVINCIBLE
-			SetMusicTrack("OilOcean_F.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ_F)
+			SetMusicTrack("EmeraldHill2_F.ogg", TRACK_STAGE, MUSIC_LOOP_WZ_F)
 			SwapMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F, 8000)
 			break
 
 		case TRACK_BOSS
 		case TRACK_DROWNING
 		case TRACK_SUPER
-			SetMusicTrack("OilOcean_F.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ_F)
+			SetMusicTrack("EmeraldHill2_F.ogg", TRACK_STAGE, MUSIC_LOOP_WZ_F)
 			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
 			break
 
@@ -111,7 +101,7 @@ private function SSZSetup_SpeedUpMusic
 	end if
 end function
 
-private function SSZSetup_SlowDownMusic
+private function WZSetup_SlowDownMusic
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -122,18 +112,18 @@ private function SSZSetup_SlowDownMusic
 		switch music.currentTrack
 		case TRACK_STAGE
 			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
-			SwapMusicTrack("OilOcean.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ, 12500)
+			SwapMusicTrack("EmeraldHill2.ogg", TRACK_STAGE, MUSIC_LOOP_WZ, 12500)
 			break
 
 		case TRACK_INVINCIBLE
-			SetMusicTrack("OilOcean.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ)
+			SetMusicTrack("EmeraldHill2.ogg", TRACK_STAGE, MUSIC_LOOP_WZ)
 			SwapMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV, 12500)
 			break
 
 		case TRACK_BOSS
 		case TRACK_DROWNING
 		case TRACK_SUPER
-			SetMusicTrack("OilOcean.ogg", TRACK_STAGE, MUSIC_LOOP_SSZ)
+			SetMusicTrack("EmeraldHill2.ogg", TRACK_STAGE, MUSIC_LOOP_WZ)
 			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
 			break
 
@@ -149,61 +139,24 @@ end function
 
 event ObjectUpdate
 	object.PaletteTimer++
-		if object.PaletteTimer == 6
+		if object.PaletteTimer == 3
 			object.PaletteTimer = 0
-			RotatePalette(0, 178, 181, false)
-		end if
-
-	// Piston Ani Tiles
-object.TileTimer++
-	GetTableValue(temp0, object.TileFrame, SSZSetup_AniTileDelay)
-	if object.TileTimer >= temp0
-		object.TileTimer = 0 
-		object.TileFrame++
-		object.TileFrame %= 6
-
-		temp2 = object.TileFrame
-		temp2 += 538
-		Copy16x16Tile(73, temp2)
-			
-		temp2 = 6
-		temp2 += object.TileFrame
-		temp2 += 538
-		Copy16x16Tile(77, temp2)
-
-		temp2 = 12
-		temp2 += object.TileFrame
-		temp2 += 538
-		Copy16x16Tile(78, temp2)
-
-		temp2 = 18
-		temp2 += object.TileFrame
-		temp2 += 538
-		Copy16x16Tile(79, temp2)
-	end if
-
-	Object.DeformTimer++
-		if Object.DeformTimer >= 2
-			Object.DeformTimer = 0
-			TileLayer[1].DeformationOffset++
+			RotatePalette(0, 179, 182, true)
 		end if
 end event
 
 event ObjectDraw
-
 end event
 
 event ObjectStartup
-	SetMusicTrack("OilOcean.ogg", 0, MUSIC_LOOP_SSZ)
-	SpeedUpMusic = SSZSetup_SpeedUpMusic
-	SlowDownMusic = SSZSetup_SlowDownMusic
+	SetMusicTrack("EmeraldHill2.ogg", 0, MUSIC_LOOP_WZ)
+	SpeedUpMusic = WZSetup_SpeedUpMusic
+	SlowDownMusic = WZSetup_SlowDownMusic
 
 	animalType1 = TypeName[Flicky]
 	animalType2 = TypeName[Ricky]
-	object[SLOT_ZONESETUP].type = TypeName[SSZ Setup]
+	object[SLOT_ZONESETUP].type = TypeName[WZ Setup]
 	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
-
-	SetLayerDeformation(DEFORM_BG, 24, 1, 0, 0, 0)
 
 end event
 
