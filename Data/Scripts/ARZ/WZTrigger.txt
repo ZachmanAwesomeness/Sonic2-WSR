@@ -1,6 +1,6 @@
 // ----------------------------------
 // RSDK Project: Sonic 2
-// Script Description: HPZ Trigger Object
+// Script Description: WZ Trigger Object
 // Script Author: Christian Whitehead/Simon Thomley
 // Unpacked by Rubberduckycooly's script unpacker
 // ----------------------------------
@@ -11,16 +11,25 @@
 
 private alias object.value0 : object.timer
 
-private alias 0 : HPZTRIGGER_BLANK
-private alias 1 : HPZTRIGGER_PAUSE
-private alias 2 : HPZTRIGGER_FADEOUT
+private alias 0 : WZTRIGGER_BLANK
+private alias 1 : WZTRIGGER_PAUSE
+private alias 2 : WZTRIGGER_FADEOUT
 
 // Player Aliases
 private alias object.state 		: player.state
 private alias object.yvel 		: player.yvel
 private alias object.animation 	: player.animation
-private alias object.value0 	: player.rings
+private alias object.interaction : player.interaction
 private alias object.value25 	: player.gravityStrength
+
+// Water Aliases
+private alias object.value3 : object.proccessActEffects
+
+// Air Bubbler Aliases
+private alias object.value5 : object.forceActive
+
+// Air Bubble Aliases
+private alias object.value1 : object.originPos.x
 
 // Game Modes
 private alias 2 : MODE_TIMEATTACK
@@ -32,52 +41,51 @@ private alias 2 : MODE_TIMEATTACK
 
 event ObjectUpdate
 	// Check if the camera bounds should change now
-	BoxCollisionTest(C_TOUCH, object.entityPos, -68, 0, 68, 5120, 0, 0, 0, 0, 0)
+	BoxCollisionTest(C_TOUCH, object.entityPos, -32, 0, 32, 5120, 0, 0, 0, 0, 0)
 	if checkResult == true
-		stage.curYBoundary1 = -0x1000
-		stage.deathBoundary = 0x1400
-		stage.deathBoundary <<= 16
+		stage.deathBoundary = 0x7FFFFFFF
 	end if
 
 	foreach (GROUP_PLAYERS, currentPlayer, ACTIVE_ENTITIES)
 		// Check player collision
-		BoxCollisionTest(C_TOUCH, object.entityPos, -68, 0, 68, 256, currentPlayer, 0, 0, 0, 0)
-
+		BoxCollisionTest(C_TOUCH, object.entityPos, -32, 0, 32, 256, currentPlayer, 0, 0, 0, 0)
 		if checkResult == true
-			// Player has touched this object, start the transition
+			// Player's touched this object, let's start the transition!
 
-			// Player should already be in this state, but it doesn't hurt
-			// player[currentPlayer].state = Player_State_Air
-
-			// Enforce maximum Y velocity
-			// if player[currentPlayer].yvel >= 0x100000
-			// 	player[currentPlayer].yvel = 0x100000
-			// 	player[currentPlayer].yvel -= player[currentPlayer].gravityStrength
-			// end if
+			// Let's make sure the player's not climbing or anything
+			player[currentPlayer].state = Player_State_Air
+			player[currentPlayer].animation = ANI_FANROTATE
+			player[currentPlayer].gravityStrength = 0x2000 // let's make the player fall a bit faster..
+			player[currentPlayer].interaction = false // the bubbles are a neat effect but we better not interact with them lol
 
 			// If P1, switch to main state
 			if currentPlayer == 0
-				if object.state == HPZTRIGGER_BLANK
-					object.state = HPZTRIGGER_PAUSE
+				if object.state == WZTRIGGER_BLANK
+					object.state = WZTRIGGER_PAUSE
+					
+					foreach (TypeName[Water], arrayPos0, ACTIVE_ENTITIES)
+						object[arrayPos0].proccessActEffects = Player_State_Static // reset the object's water effects function so that we can set stage.newWaterLevel ourselves
+						stage.newWaterLevel = 0x7FFF0000 // let's pull the water down..
+					next
 				end if
 			end if
 		end if
 	next
 
 	switch object.state
-	case HPZTRIGGER_PAUSE
+	case WZTRIGGER_PAUSE
 		// Letting the player fall for a second
 		object.timer++
-		if object.timer == 40
+		if object.timer == 80
 			object.timer = 0
 			object.state++
 		end if
 		break
 
-	case HPZTRIGGER_FADEOUT
-		// Fading out to go to HPZ
+	case WZTRIGGER_FADEOUT
+		// Fading out to go to WZ
 		music.volume -= 4
-		object.timer += 24
+		object.timer += 6
 		SetScreenFade(0, 0, 0, object.timer)
 		if object.timer == 384
 			starPostID = 0
@@ -92,19 +100,40 @@ end event
 
 
 event ObjectStartup
-	// Cycle through all HPZ Trigger objects and...x
-	foreach (TypeName[SSZ Trigger], arrayPos0, ALL_ENTITIES)
+	// Cycle through all WZ Trigger objects and...
+	foreach (TypeName[WZ Trigger], arrayPos0, ALL_ENTITIES)
+		CheckEqual(options.gameMode, MODE_TIMEATTACK)
+		checkResult |= options.vsMode
 		if options.gameMode == MODE_TIMEATTACK
-			// Erase it if in time attack, turning this pit into just a normal bottomless pit
+			// If in VS or time attack, just make this a normal pit
 			ResetObjectEntity(arrayPos0, TypeName[Blank Object], 0, 0, 0)
 		else
-			if options.vsMode == false
-				// Give it the XBOUNDS priority if in single player
-				object[arrayPos0].priority = PRIORITY_XBOUNDS
-			else
-				// Erase it if in 2P mode
-				ResetObjectEntity(arrayPos0, TypeName[Blank Object], 0, 0, 0)
-			end if
+			object[arrayPos0].priority = PRIORITY_XBOUNDS
+			
+			// Setup for all the following bubblers
+			arrayPos1 = arrayPos0
+			arrayPos1++
+			while object[arrayPos1].type == TypeName[Air Bubbler]
+				object[arrayPos1].drawOrder = 8 // (make it invis)
+				object[arrayPos1].priority = PRIORITY_XBOUNDS
+				object[arrayPos1].forceActive = true // (this var is new)
+				
+				arrayPos1++
+				if arrayPos1 >= 0x420
+					arrayPos1 = 0
+				end if
+			loop
+			
+			// And now, it's the bubbles' turn!
+			while object[arrayPos1].type == TypeName[Air Bubble]
+				object[arrayPos1].originPos.x = object[arrayPos1].xpos
+				object[arrayPos1].frame = object[arrayPos1].propertyValue
+				
+				arrayPos1++
+				if arrayPos1 >= 0x420
+					arrayPos1 = 0
+				end if
+			loop
 		end if
 	next
 end event
