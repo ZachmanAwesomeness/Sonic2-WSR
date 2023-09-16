@@ -486,7 +486,7 @@ end event
 event ObjectStartup
 	CheckCurrentStageFolder("Zone03")
 	if checkResult == true
-		LoadSpriteSheet("Global/EggMobile.gif")
+		LoadSpriteSheet("ARZ/Objects5.gif")
 		
 		// Eggman Frames
 		SpriteFrame(-28, -28, 60, 20, 5, 1)
@@ -562,7 +562,7 @@ end event
 event RSDKLoad
 	CheckCurrentStageFolder("Zone03")
 	if checkResult == true
-		LoadSpriteSheet("Global/EggMobile.gif")
+		LoadSpriteSheet("ARZ/Objects5.gif")
 		SpriteFrame(-28, -28, 60, 20, 5, 1)
 		SpriteFrame(-32, -8, 64, 29, 1, 64)
 	else
