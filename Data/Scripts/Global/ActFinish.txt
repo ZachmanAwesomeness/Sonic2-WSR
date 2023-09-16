@@ -336,8 +336,9 @@ event ObjectUpdate
 			
 			stage.listPos++
 			
-			// Hidden Palace Checks
-			if stage.listPos > 20
+			// WSR - insert some special handling for the special zones
+			switch stage.listPos
+			case 21 // Just finished Hidden Palace Zone
 				stage.listPos = 12 // Make the next stage Oil Ocean Zone Act 1
 				if options.stageSelectFlag == false
 					if stage.debugMode == false
@@ -350,55 +351,21 @@ event ObjectUpdate
 						end if
 					end if
 				end if
-			end if
+				break
 
-			// Wood Zone Checks
-			if stage.listPos > 22
+			case 24 // Just finished Wood Zone 2
 				stage.listPos = 8 // Make the next stage Hill Top Zone Act 1
-				if options.stageSelectFlag == false
-					if stage.debugMode == false
-						if options.gameMode == MODE_NOSAVE
-							ReadSaveRAM()
-							saveRAM[47] = true // "unlockedWZ"
-							WriteSaveRAM()
-						else
-							saveRAM[47] = true // "unlockedWZ"
-						end if
-					end if
-				end if
-			end if
-
-			// Mirage Saloon Zone Checks
-			if stage.listPos > 24
+				break
+			
+			case 26 // Just finished Sand Shower Zone 2
 				stage.listPos = 17 // Make the next stage Sky Chase Zone
-				if options.stageSelectFlag == false
-					if stage.debugMode == false
-						if options.gameMode == MODE_NOSAVE
-							ReadSaveRAM()
-							saveRAM[48] = true // "unlockedSSZ"
-							WriteSaveRAM()
-						else
-							saveRAM[48] = true // "unlockedSSZ"
-						end if
-					end if
-				end if
-			end if
-
-			// Ocean Wind Zone Checks
-			if stage.listPos > 26
+				break
+			
+			case 28 // Just finished Ocean Wind Zone 2
 				stage.listPos = 4 // Make the next stage Aquatic Ruin Zone Act 1
-				if options.stageSelectFlag == false
-					if stage.debugMode == false
-						if options.gameMode == MODE_NOSAVE
-							ReadSaveRAM()
-							saveRAM[49] = true // "unlockedOWZ"
-							WriteSaveRAM()
-						else
-							saveRAM[49] = true // "unlockedOWZ"
-						end if
-					end if
-				end if
-			end if
+				break
+			
+			end switch
 
 			if options.gameMode == MODE_SAVEGAME
 				arrayPos1 = options.saveSlot
