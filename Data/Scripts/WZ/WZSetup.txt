@@ -1,6 +1,6 @@
 // ----------------------------------
 // RSDK Project:  Sonic 2 Westside Renovation
-// Script Description:    WZ Setup Object 
+// Script Description: WZ Setup Object 
 // Script Author: Twanvanb1
 // ----------------------------------
 
@@ -9,14 +9,6 @@
 // ========================
 
 private alias object.value0 	:	object.PaletteTimer
-private alias object.value1 	:
-private alias object.value2 	:
-private alias object.value3 	:
-private alias object.value4 	:
-private alias object.value5 	:
-private alias object.value6 	:
-private alias object.value7 	:
-private alias object.value8 	:
 
 // Tracks
 private alias 0 : TRACK_STAGE
@@ -157,7 +149,6 @@ event ObjectStartup
 	animalType2 = TypeName[Ricky]
 	object[SLOT_ZONESETUP].type = TypeName[WZ Setup]
 	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
-
 end event
 
 // ========================

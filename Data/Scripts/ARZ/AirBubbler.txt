@@ -16,6 +16,7 @@ private alias object.value1 : object.bubbleType2
 private alias object.value2 : object.bubbleType1
 private alias object.value3 : object.bubbleFlags
 private alias object.value4 : object.dudsRemaining
+private alias object.value5 : object.forceActive
 
 // AirBubble object aliases
 private alias object.value1 : airBubble.originPos.y
@@ -64,6 +65,7 @@ event ObjectUpdate
 	
 	if object.iypos > stage.waterLevel
 		CheckCameraProximity(object.ixpos, object.iypos, screen.xcenter, screen.ycenter)
+		checkResult |= object.forceActive // WSR - little change for the ARZ->WZ scene
 		if checkResult == true
 			temp1 = 0
 			if object.bubbleFlags == 0

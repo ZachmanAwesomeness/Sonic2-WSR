@@ -1,6 +1,6 @@
 // ----------------------------------
 // RSDK Project: Sonic 2
-// Script Description: HPZ Trigger Object
+// Script Description: SSZ Trigger Object
 // Script Author: Christian Whitehead/Simon Thomley
 // Unpacked by Rubberduckycooly's script unpacker
 // ----------------------------------
@@ -11,9 +11,9 @@
 
 private alias object.value0 : object.timer
 
-private alias 0 : HPZTRIGGER_BLANK
-private alias 1 : HPZTRIGGER_PAUSE
-private alias 2 : HPZTRIGGER_FADEOUT
+private alias 0 : SSZTRIGGER_BLANK
+private alias 1 : SSZTRIGGER_PAUSE
+private alias 2 : SSZTRIGGER_FADEOUT
 
 // Player Aliases
 private alias object.state 		: player.state
@@ -35,15 +35,14 @@ event ObjectUpdate
 	BoxCollisionTest(C_TOUCH, object.entityPos, -68, 0, 68, 5120, 0, 0, 0, 0, 0)
 	if checkResult == true
 		stage.curYBoundary1 = -0x1000
-		stage.deathBoundary = 0x1400
-		stage.deathBoundary <<= 16
 	end if
 
 	foreach (GROUP_PLAYERS, currentPlayer, ACTIVE_ENTITIES)
-		// Check player collision
 		BoxCollisionTest(C_TOUCH, object.entityPos, -68, 0, 68, 256, currentPlayer, 0, 0, 0, 0)
-
-		if checkResult == true
+		temp0 = checkResult
+		CheckEqual(player[currentPlayer].state, Player_State_Static) // Let's make sure that the player was launched by a cannon, we don't want Tails's flying to be able to trigger it!
+		temp0 &= checkResult
+		if temp0 == true
 			// Player has touched this object, start the transition
 
 			// Player should already be in this state, but it doesn't hurt
@@ -57,15 +56,15 @@ event ObjectUpdate
 
 			// If P1, switch to main state
 			if currentPlayer == 0
-				if object.state == HPZTRIGGER_BLANK
-					object.state = HPZTRIGGER_PAUSE
+				if object.state == SSZTRIGGER_BLANK
+					object.state = SSZTRIGGER_PAUSE
 				end if
 			end if
 		end if
 	next
 
 	switch object.state
-	case HPZTRIGGER_PAUSE
+	case SSZTRIGGER_PAUSE
 		// Letting the player fall for a second
 		object.timer++
 		if object.timer == 40
@@ -74,8 +73,8 @@ event ObjectUpdate
 		end if
 		break
 
-	case HPZTRIGGER_FADEOUT
-		// Fading out to go to HPZ
+	case SSZTRIGGER_FADEOUT
+		// Fading out to go to SSZ
 		music.volume -= 4
 		object.timer += 24
 		SetScreenFade(0, 0, 0, object.timer)
@@ -92,10 +91,10 @@ end event
 
 
 event ObjectStartup
-	// Cycle through all HPZ Trigger objects and...x
+	// Cycle through all SSZ Trigger objects and...
 	foreach (TypeName[SSZ Trigger], arrayPos0, ALL_ENTITIES)
 		if options.gameMode == MODE_TIMEATTACK
-			// Erase it if in time attack, turning this pit into just a normal bottomless pit
+			// Erase it if in time attack
 			ResetObjectEntity(arrayPos0, TypeName[Blank Object], 0, 0, 0)
 		else
 			if options.vsMode == false
