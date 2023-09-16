@@ -1,0 +1,114 @@
+// ----------------------------------
+// RSDK Project: Sonic 2
+// Script Description: Water Drop Object
+// Script Author: Lave sIime
+// ----------------------------------
+
+// ========================
+// Aliases
+// ========================
+
+private alias object.value0 : object.timer
+
+private alias 0 : WATERDROP_SPAWNER
+private alias 1 : WATERDROP_FALLING
+private alias 2 : WATERDROP_SPLASH
+
+// Path ID Aliases
+private alias 0 : PATH_A
+
+
+// ========================
+// Events
+// ========================
+
+event ObjectUpdate
+	switch object.propertyValue
+	case WATERDROP_SPAWNER
+		if object.timer > 0
+			object.timer--
+		else
+			Rand(temp0, 48)
+			temp0 <<= 16
+			temp0 += object.xpos
+			
+			temp1 = screen.yoffset
+			temp1 >>= 16
+			
+			CreateTempObject(TypeName[Water Drop], WATERDROP_FALLING, temp0, temp1)
+			object[tempObjectPos].frame = 1
+			
+			Rand(object.timer, 32)
+			object.timer += 48
+		end if
+		break
+		
+	case WATERDROP_FALLING
+		object.ypos += object.yvel
+		object.yvel += 0x800
+		
+		ObjectTileCollision(CSIDE_FLOOR, 0, 4, PATH_A)
+		if checkResult == true
+			object.frame++
+			object.propertyValue++
+		end if
+		break
+		
+	case WATERDROP_SPLASH
+		object.timer++
+		if object.timer == 5
+			object.timer = 0
+			object.frame++
+			
+			if object.frame == 4
+				object.type = TypeName[Blank Object]
+			end if
+		end if
+		break
+		
+	end switch
+end event
+
+
+event ObjectDraw
+	DrawSprite(object.frame)
+end event
+
+
+event ObjectStartup
+	LoadSpriteSheet("WZ/Objects.gif")
+	
+	SpriteFrame(0, 0, 0, 0, 1, 1) // Blank :(
+	SpriteFrame(-4, -5, 7, 11, 1, 1) // Drip
+	SpriteFrame(-5, 1, 10, 3, 9, 1) // Splash 1
+	SpriteFrame(-7, 0, 14, 5, 9, 5) // Splash 2
+	
+	foreach (TypeName[Water Drop], arrayPos0, ALL_ENTITIES)
+		object[arrayPos0].propertyValue = 0
+		object[arrayPos0].timer = 26
+		object[arrayPos0].priority = PRIORITY_XBOUNDS
+	next
+end event
+
+
+// ========================
+// Editor Events
+// ========================
+
+event RSDKDraw
+	DrawSprite(0)
+end event
+
+
+event RSDKLoad
+	CheckCurrentStageFolder("Zone01")
+	if checkResult == true
+		LoadSpriteSheet("EHZ/Objects.gif")
+		SpriteFrame(-16, -16, 32, 32, 1, 143)
+	else
+		LoadSpriteSheet("MBZ/Objects.gif")
+		SpriteFrame(-16, -16, 32, 32, 123, 58)
+	end if
+	
+	SetVariableAlias(ALIAS_VAR_PROPVAL, "unused")
+end event
