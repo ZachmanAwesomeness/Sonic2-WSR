@@ -486,32 +486,32 @@ end event
 event ObjectStartup
 	CheckCurrentStageFolder("Zone03")
 	if checkResult == true
-		LoadSpriteSheet("ARZ/Objects5.gif")
+		LoadSpriteSheet("ARZ/Objects3.gif")
 		
 		// Eggman Frames
-		SpriteFrame(-28, -28, 60, 20, 5, 1)
-		SpriteFrame(-28, -28, 60, 20, 66, 1)
-		SpriteFrame(-28, -28, 60, 20, 5, 22)
-		SpriteFrame(-28, -28, 60, 20, 66, 22)
-		SpriteFrame(-28, -28, 60, 20, 5, 43)
-		SpriteFrame(-28, -28, 60, 20, 66, 43)
+		SpriteFrame(-28, -28, 60, 20, 68, 26)
+		SpriteFrame(-28, -28, 60, 20, 129, 26)
+		SpriteFrame(-28, -28, 60, 20, 68, 47)
+		SpriteFrame(-28, -28, 60, 20, 129, 47)
+		SpriteFrame(-28, -28, 60, 20, 68, 68)
+		SpriteFrame(-28, -28, 60, 20, 129, 68)
 		
 		// Eggmobile Body Frame
-		SpriteFrame(-32, -8, 64, 29, 1, 64)
+		SpriteFrame(-32, -8, 64, 29, 1, 47)
 		
 		// Eggmobile Jet Frames
-		SpriteFrame(31, 4, 12, 8, 66, 65)
-		SpriteFrame(30, 2, 14, 12, 66, 74)
-		SpriteFrame(31, -2, 22, 14, 66, 87)
-		SpriteFrame(31, -9, 32, 26, 94, 64)
-		SpriteFrame(31, -2, 22, 14, 66, 87)
-		SpriteFrame(31, -9, 32, 26, 94, 64)
-		SpriteFrame(31, 4, 12, 8, 66, 65)
-		SpriteFrame(30, 2, 14, 12, 66, 74)
+		SpriteFrame(31, 4, 12, 8, 1, 77)
+		SpriteFrame(30, 2, 14, 12, 27, 77)
+		SpriteFrame(31, -2, 22, 14, 42, 77)
+		SpriteFrame(31, -9, 32, 26, 190, 68)
+		SpriteFrame(31, -2, 22, 14, 42, 77)
+		SpriteFrame(31, -9, 32, 26, 190, 68)
+		SpriteFrame(31, 4, 12, 8, 1, 77)
+		SpriteFrame(30, 2, 14, 12, 27, 77)
 		
 		// Sweat Frames
-		SpriteFrame(-3, -28, 11, 8, 79, 65)
-		SpriteFrame(0, 0, 0, 0, 7, 2)
+		SpriteFrame(-3, -28, 11, 8, 14, 77)
+		SpriteFrame(0, 0, 0, 0, 1, 1)
 
 		if options.vsMode == true
 			foreach (TypeName[Eggman], arrayPos0, ALL_ENTITIES)
@@ -562,9 +562,9 @@ end event
 event RSDKLoad
 	CheckCurrentStageFolder("Zone03")
 	if checkResult == true
-		LoadSpriteSheet("ARZ/Objects5.gif")
-		SpriteFrame(-28, -28, 60, 20, 5, 1)
-		SpriteFrame(-32, -8, 64, 29, 1, 64)
+		LoadSpriteSheet("ARZ/Objects3.gif")
+		SpriteFrame(-28, -28, 60, 20, 68, 26)
+		SpriteFrame(-32, -8, 64, 29, 1, 47)
 	else
 		LoadSpriteSheet("MBZ/Objects.gif")
 		SpriteFrame(-28, -28, 60, 20, 1, 1)
