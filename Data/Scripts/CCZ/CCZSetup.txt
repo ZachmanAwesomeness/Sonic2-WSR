@@ -1,0 +1,237 @@
+// ----------------------------------
+// RSDK Project:  Sonic the Lost Worlds RSDKv4
+// Script Description:    CCZ Setup Object 
+// Script Author: Twanvanb1
+// ----------------------------------
+
+// ========================
+// Aliases
+// ========================
+
+private alias object.value0 	: object.PaletteTimer
+private alias object.value10 	: object.palCycle1Timer
+private alias object.value11 	: object.palCycle1Index
+private alias object.value12 	: object.palCycle2Timer
+private alias object.value13 	: object.palCycle2Index
+
+
+// Tracks
+private alias 0 : TRACK_STAGE
+private alias 1 : TRACK_ACTFINISH
+private alias 2 : TRACK_INVINCIBLE
+private alias 3 : TRACK_CONTINUE
+private alias 4 : TRACK_BOSS
+private alias 5 : TRACK_GAMEOVER
+private alias 6 : TRACK_DROWNING
+private alias 7 : TRACK_SUPER
+
+// Reserved Object Slots Aliases
+private alias 10 : SLOT_ZONESETUP
+private alias 25 : SLOT_MUSICEVENT_CHANGE
+private alias 26 : SLOT_MUSICEVENT_BOSS
+
+// Music Events
+private alias 0 : MUSICEVENT_FADETOBOSS
+private alias 1 : MUSICEVENT_FADETOSTAGE
+private alias 2 : MUSICEVENT_TRANSITION
+
+private alias 0 : MUSICEVENT_FLAG_NOCHANGE
+private alias 1 : MUSICEVENT_FLAG_SPEEDUP
+private alias 2 : MUSICEVENT_FLAG_SLOWDOWN
+
+// Music Loops
+
+private alias 1 : MUSIC_LOOP_CCZ
+private alias 1 : MUSIC_LOOP_CCZ_F
+
+private alias 38679  : MUSIC_LOOP_INV
+private alias 30897  : MUSIC_LOOP_INV_F
+
+// ========================
+// Function Declarations
+// ========================
+
+reserve function CCZSetup_SpeedUpMusic
+reserve function CCZSetup_SlowDownMusic
+
+// ========================
+// Static Values
+// ========================
+
+public value Water_flashTimer = 0;
+
+// ========================
+// Tables
+// ========================
+
+private table CCZSetup_palCycle1
+	0x00A000, 0x000000, 0xE0E000, 0x000000, 0xE02000
+	0x000000, 0xE020E0, 0x000000, 0x0080E0, 0x000000
+end table
+
+private table CCZSetup_palCycle2
+	0x600000, 0x800000, 0xA00000
+	0xC00000, 0xA00000, 0x800000
+end table
+
+// ========================
+// Function Definitions
+// ========================
+
+private function CCZSetup_SpeedUpMusic
+	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
+	temp0 = checkResult
+	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
+	temp0 &= checkResult
+	CheckEqual(stage.musicFlag, MUSICEVENT_FLAG_NOCHANGE)
+	temp0 &= checkResult
+	if temp0 == 0
+		switch music.currentTrack
+		case TRACK_STAGE
+			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
+			SwapMusicTrack("CyberCity_F.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ_F, 8000)
+			break
+
+		case TRACK_INVINCIBLE
+			SetMusicTrack("CyberCity_F.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ_F)
+			SwapMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F, 8000)
+			break
+
+		case TRACK_BOSS
+		case TRACK_DROWNING
+		case TRACK_SUPER
+			SetMusicTrack("CyberCity_F.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ_F)
+			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
+			break
+
+		end switch
+	else
+		stage.musicFlag = MUSICEVENT_FLAG_SPEEDUP
+	end if
+end function
+
+private function CCZSetup_SlowDownMusic
+	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
+	temp0 = checkResult
+	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
+	temp0 &= checkResult
+	CheckEqual(stage.musicFlag, MUSICEVENT_FLAG_NOCHANGE)
+	temp0 &= checkResult
+	if temp0 == 0
+		switch music.currentTrack
+		case TRACK_STAGE
+			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
+			SwapMusicTrack("CyberCity.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ, 12500)
+			break
+
+		case TRACK_INVINCIBLE
+			SetMusicTrack("CyberCity.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ)
+			SwapMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV, 12500)
+			break
+
+		case TRACK_BOSS
+		case TRACK_DROWNING
+		case TRACK_SUPER
+			SetMusicTrack("CyberCity.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ)
+			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
+			break
+
+		end switch
+	else
+		stage.musicFlag = MUSICEVENT_FLAG_SLOWDOWN
+	end if
+end function
+
+// ========================
+// Events
+// ========================
+
+event ObjectUpdate
+	object.PaletteTimer++
+	if object.PaletteTimer > 2
+		object.PaletteTimer = 0
+		rotatePalette(0, 161, 164, false)
+	end if
+
+	object.palCycle1Timer++
+	if object.palCycle1Timer >= 10
+		object.palCycle1Timer = 0
+		object.palCycle1Index++
+		if object.palCycle1Index >= 10
+			object.palCycle1Index = 0
+		end if
+		GetTableValue(temp0, object.palCycle1Index, CCZSetup_palCycle1)
+		SetPaletteEntry(0, 175, temp0)
+	end if
+
+
+	object.palCycle2Timer++
+	if object.palCycle2Timer >= 18
+		object.palCycle2Timer = 0
+		object.palCycle2Index++
+		if object.palCycle2Index >= 6
+			object.palCycle2Index = 0
+		end if
+		GetTableValue(temp0, object.palCycle2Index, CCZSetup_palCycle2)
+		SetPaletteEntry(0, 168, temp0)
+	end if
+
+	if stage.actnum == 2
+		if object[0].ypos > 0x100
+			stage.curXBoundary1 = 0x600
+		else
+			stage.newXBoundary1 = 0x00
+		end if
+	end if
+end event
+
+event ObjectDraw
+	temp0 = stage.waterLevel
+	temp0 -= screen.yoffset
+
+	if temp0 < 0
+		temp0 = 0
+	end if
+
+	if temp0 > screen.ysize
+		temp0 = screen.ysize
+	end if
+
+	SetActivePalette(0, 0, temp0)
+	if Water_flashTimer > 0
+		SetActivePalette(2, temp0, screen.ysize)
+	else
+		SetActivePalette(1, temp0, screen.ysize)
+	end if	
+end event
+
+event ObjectStartup
+	SetMusicTrack("CyberCity.ogg", TRACK_STAGE, MUSIC_LOOP_CCZ)
+	SpeedUpMusic = CCZSetup_SpeedUpMusic
+	SlowDownMusic = CCZSetup_SlowDownMusic
+
+	animalType1 = TypeName[Flicky]
+	animalType2 = TypeName[Ricky]
+
+	object[SLOT_ZONESETUP].type = TypeName[CCZ Setup]
+	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
+	object[SLOT_ZONESETUP].drawOrder = 0
+
+	LoadPalette("CCZ_WaterPal.act", 1, 0, 0, 256)
+	LoadPalette("ElectricFlash.act", 2, 0, 0, 256)
+end event
+
+// ========================
+// Editor Events
+// ========================
+
+event RSDKDraw
+  DrawSprite(0)
+end event
+
+event RSDKLoad
+  LoadSpriteSheet("Global/Display.gif")
+  SpriteFrame(-16, -16, 32, 32, 1, 143)
+
+  SetVariableAlias(ALIAS_VAR_PROPVAL, "unused")
+end event
