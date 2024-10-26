@@ -82,14 +82,14 @@ reserve function OWZSetup_SlowDownMusic2P
 // Static Values
 // ========================
 
-private value owzSetup_hasAchievement = 0
+private value OWZSetup_hasAchievement = 0
 
 
 // ========================
 // Tables
 // ========================
 
-private table owzSetup_bgLightFrameTable
+private table OWZSetup_bgLightFrameTable
 	508, 24
 	509, 10
 	510, 12
@@ -98,7 +98,7 @@ private table owzSetup_bgLightFrameTable
 	509, 10
 end table
 
-private table owzSetup_pinkFlowerFrameTable
+private table OWZSetup_pinkFlowerFrameTable
 	512, 128
 	513, 20
 	512, 8
@@ -107,7 +107,7 @@ private table owzSetup_pinkFlowerFrameTable
 	513, 8
 end table
 
-private table owzSetup_redFlowerFrameTable
+private table OWZSetup_redFlowerFrameTable
 	514, 128
 	515, 12
 	514, 12
@@ -118,12 +118,12 @@ private table owzSetup_redFlowerFrameTable
 	515, 6
 end table
 
-private table owzSetup_rectFlowerFrameTable
+private table OWZSetup_rectFlowerFrameTable
 	516, 8
 	517, 8
 end table
 
-private table owzSetup_pointyFlowerFrameTable
+private table OWZSetup_pointyFlowerFrameTable
 	518, 128
 	519, 8
 	518, 8
@@ -134,311 +134,18 @@ private table owzSetup_pointyFlowerFrameTable
 	519, 12
 end table
 
-private table owzSetup_deformationTable
+private table OWZSetup_deformationTable
 	1, 2, 1, 3, 1, 2, 2, 1, 2, 3, 1, 2, 1, 2, 0, 0
 	2, 0, 3, 2, 2, 3, 2, 2, 1, 3, 0, 0, 1, 0, 1, 3
 	1, 2, 1, 3, 1, 2, 2, 1, 2, 3, 1, 2, 1, 2, 0, 0
 	2, 0, 3, 2, 2, 3, 2, 2, 1, 3, 0, 0, 1, 0, 1, 3
 end table
-
-private table owzSetup_replay_attract_S
-	0x440000, 0x2910000
-	0x20, 1
-	0x28, 27
-	0x08, 39
-	0x38, 1
-	0x28, 9
-	0x08, 40
-	0x38, 1
-	0x28, 6
-	0x08, 8
-	0x38, 1
-	0x28, 6
-	0x08, 175
-	0x38, 1
-	0x28, 7
-	0x08, 111
-	0x00, 2
-	0x04, 35
-	0x34, 1
-	0x24, 7
-	0x04, 73
-	0x00, 4
-	0x08, 4
-	0x38, 1
-	0x28, 7
-	0x08, 68
-	0x00, 5
-	0x04, 30
-	0x00, 8
-	0x02, 4
-	0x32, 1
-	0x22, 1
-	0x32, 1
-	0x20, 4
-	0x00, 15
-	0x08, 56
-	0x00, 1
-	0x02, 32
-	0x32, 1
-	0x22, 1
-	0x2A, 1
-	0x28, 3
-	0x08, 255
-	0x08, 97
-	0x00, 12
-	0x04, 5
-	0x00, 26
-	0x08, 21
-	0x38, 1
-	0x28, 9
-	0x08, 255
-	0x08, 4
-	0x0A, 3
-	0x02, 7
-	0x0A, 2
-end table
-
-private table owzSetup_replay_attract_T
-	0x440000, 0x2950000
-	0x20, 13
-	0x28, 38
-	0x08, 47
-	0x38, 1
-	0x28, 12
-	0x08, 224
-	0x38, 1
-	0x28, 5
-	0x08, 69
-	0x38, 1
-	0x28, 8
-	0x20, 2
-	0x00, 2
-	0x08, 12
-	0x00, 28
-	0x08, 16
-	0x00, 1
-	0x08, 255
-	0x08, 5
-	0x38, 1
-	0x28, 24
-	0x08, 218
-	0x38, 1
-	0x28, 9
-	0x08, 50
-	0x00, 1
-	0x04, 7
-	0x00, 16
-	0x08, 174
-	0x38, 1
-	0x28, 12
-	0x08, 7
-	0x38, 1
-	0x28, 8
-	0x08, 4
-	0x38, 1
-	0x28, 5
-	0x08, 3
-	0x04, 2
-	0x34, 1
-	0x24, 5
-	0x04, 4
-	0x34, 1
-	0x20, 5
-	0x00, 4
-	0x04, 1
-	0x34, 1
-	0x24, 3
-	0x04, 4
-	0x34, 1
-	0x24, 4
-	0x04, 5
-	0x34, 1
-	0x24, 3
-	0x04, 1
-	0x00, 2
-	0x08, 2
-	0x38, 1
-	0x28, 3
-	0x20, 2
-	0x00, 1
-	0x08, 5
-	0x00, 5
-	0x08, 3
-	0x38, 1
-	0x28, 2
-	0x08, 1
-	0x00, 9
-	0x08, 5
-	0x00, 15
-	0x08, 22
-	0x00, 3
-	0x04, 2
-	0x34, 1
-	0x24, 9
-	0x20, 2
-	0x28, 8
-	0x08, 4
-	0x38, 1
-	0x28, 4
-	0x20, 1
-	0x00, 3
-	0x30, 1
-	0x20, 6
-	0x00, 4
-	0x30, 1
-	0x20, 5
-	0x00, 1
-	0x08, 3
-	0x00, 1
-	0x30, 1
-	0x20, 5
-	0x00, 3
-	0x30, 1
-	0x20, 3
-	0x28, 3
-	0x08, 2
-	0x00, 1
-	0x30, 1
-	0x20, 5
-	0x00, 5
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 4
-	0x00, 5
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 5
-	0x00, 4
-	0x30, 1
-	0x20, 4
-	0x00, 5
-	0x30, 1
-	0x20, 4
-	0x00, 5
-	0x30, 1
-	0x20, 4
-	0x00, 5
-	0x30, 1
-	0x20, 5
-	0x00, 3
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 5
-	0x00, 3
-	0x30, 1
-	0x20, 5
-	0x00, 3
-	0x30, 1
-	0x20, 6
-	0x00, 3
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 4
-	0x00, 4
-	0x30, 1
-	0x20, 4
-	0x28, 2
-	0x08, 39
-	0x38, 1
-	0x28, 12
-	0x08, 13
-	0x00, 17
-	0x08, 4
-	0x00, 12
-	0x04, 11
-	0x08, 8
-end table
-
-private table owzSetup_replay_attract_K
-	0x440000, 0x2910000
-	0x00, 18
-	0x08, 77
-	0x38, 1
-	0x28, 13
-	0x08, 70
-	0x38, 1
-	0x28, 14
-	0x08, 3
-	0x00, 22
-	0x04, 4
-	0x00, 3
-	0x30, 1
-	0x20, 16
-	0x28, 3
-	0x08, 1
-	0x00, 30
-	0x30, 1
-	0x20, 38
-	0x28, 149
-	0x08, 11
-	0x00, 3
-	0x04, 6
-	0x00, 4
-	0x04, 5
-	0x00, 5
-	0x08, 13
-	0x00, 14
-	0x04, 89
-	0x00, 6
-	0x08, 44
-	0x0A, 1
-	0x02, 13
-	0x00, 52
-	0x08, 59
-	0x38, 1
-	0x28, 17
-	0x08, 18
-	0x00, 4
-	0x04, 33
-	0x00, 1
-	0x08, 105
-	0x38, 1
-	0x28, 30
-	0x08, 45
-	0x04, 6
-	0x00, 52
-	0x08, 6
-	0x38, 1
-	0x28, 19
-	0x08, 54
-	0x0A, 6
-	0x02, 17
-	0x0A, 2
-	0x08, 58
-	0x38, 1
-	0x28, 4
-	0x08, 197
-	0x38, 1
-	0x29, 10
-	0x09, 14
-	0x39, 1
-	0x29, 40
-	0x21, 4
-	0x01, 126
-	0x09, 12
-	0x08, 6
-	0x38, 1
-	0x28, 12
-end table
-
 
 // ========================
 // Function Definitions
 // ========================
 
-private function owzSetup_SpeedUpMusic1P
+private function OWZSetup_SpeedUpMusic1P
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -449,18 +156,18 @@ private function owzSetup_SpeedUpMusic1P
 		switch music.currentTrack
 		case TRACK_STAGE
 			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
-			SwapMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P_F, 8000)
+			SwapMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P_F, 8000)
 			break
 
 		case TRACK_INVINCIBLE
-			SetMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P_F)
+			SetMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P_F)
 			SwapMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F, 8000)
 			break
 
 		case TRACK_BOSS
 		case TRACK_DROWNING
 		case TRACK_SUPER
-			SetMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P_F)
+			SetMusicTrack("OceanWind_F.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P_F)
 			SetMusicTrack("Invincibility_F.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV_F)
 			break
 			
@@ -471,7 +178,7 @@ private function owzSetup_SpeedUpMusic1P
 end function
 
 
-private function owzSetup_SlowDownMusic1P
+private function OWZSetup_SlowDownMusic1P
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -482,18 +189,18 @@ private function owzSetup_SlowDownMusic1P
 		switch music.currentTrack
 		case TRACK_STAGE
 			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
-			SwapMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P, 12500)
+			SwapMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P, 12500)
 			break
 
 		case TRACK_INVINCIBLE
-			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P)
+			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P)
 			SwapMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV, 12500)
 			break
 
 		case TRACK_BOSS
 		case TRACK_DROWNING
 		case TRACK_SUPER
-			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P)
+			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P)
 			SetMusicTrack("Invincibility.ogg", TRACK_INVINCIBLE, MUSIC_LOOP_INV)
 			break
 			
@@ -504,7 +211,7 @@ private function owzSetup_SlowDownMusic1P
 end function
 
 
-private function owzSetup_SpeedUpMusic2P
+private function OWZSetup_SpeedUpMusic2P
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -537,7 +244,7 @@ private function owzSetup_SpeedUpMusic2P
 end function
 
 
-private function owzSetup_SlowDownMusic2P
+private function OWZSetup_SlowDownMusic2P
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].type, TypeName[Music Event])
 	temp0 = checkResult
 	CheckEqual(object[SLOT_MUSICEVENT_CHANGE].propertyValue, MUSICEVENT_TRANSITION)
@@ -605,7 +312,7 @@ event ObjectUpdate
 	end if
 
 	if object.bgLightDuration < 2
-		GetTableValue(temp0, object.bgLightFrame, owzSetup_bgLightFrameTable)
+		GetTableValue(temp0, object.bgLightFrame, OWZSetup_bgLightFrameTable)
 
 		Copy16x16Tile(502, temp0)
 		temp0 += 12
@@ -616,7 +323,7 @@ event ObjectUpdate
 		Copy16x16Tile(504, temp0)
 		object.bgLightFrame++
 		
-		GetTableValue(object.bgLightDuration, object.bgLightFrame, owzSetup_bgLightFrameTable)
+		GetTableValue(object.bgLightDuration, object.bgLightFrame, OWZSetup_bgLightFrameTable)
 		object.bgLightFrame++
 
 		object.bgLightFrame %= 12
@@ -625,12 +332,12 @@ event ObjectUpdate
 	end if
 
 	if object.pinkFlowerDuration < 2
-		GetTableValue(temp0, object.pinkFlowerFrame, owzSetup_pinkFlowerFrameTable)
+		GetTableValue(temp0, object.pinkFlowerFrame, OWZSetup_pinkFlowerFrameTable)
 
 		Copy16x16Tile(764, temp0)
 		object.pinkFlowerFrame++
 
-		GetTableValue(object.pinkFlowerDuration, object.pinkFlowerFrame, owzSetup_pinkFlowerFrameTable)
+		GetTableValue(object.pinkFlowerDuration, object.pinkFlowerFrame, OWZSetup_pinkFlowerFrameTable)
 		object.pinkFlowerFrame++
 
 		object.pinkFlowerFrame %= 12
@@ -639,12 +346,12 @@ event ObjectUpdate
 	end if
 
 	if object.redFlowerDuration < 2
-		GetTableValue(temp0, object.redFlowerFrame, owzSetup_redFlowerFrameTable)
+		GetTableValue(temp0, object.redFlowerFrame, OWZSetup_redFlowerFrameTable)
 
 		Copy16x16Tile(765, temp0)
 		object.redFlowerFrame++
 
-		GetTableValue(object.redFlowerDuration, object.redFlowerFrame, owzSetup_redFlowerFrameTable)
+		GetTableValue(object.redFlowerDuration, object.redFlowerFrame, OWZSetup_redFlowerFrameTable)
 		object.redFlowerFrame++
 
 		object.redFlowerFrame &= 15
@@ -653,12 +360,12 @@ event ObjectUpdate
 	end if
 
 	if object.rectFlowerDuration < 2
-		GetTableValue(temp0, object.rectFlowerFrame, owzSetup_rectFlowerFrameTable)
+		GetTableValue(temp0, object.rectFlowerFrame, OWZSetup_rectFlowerFrameTable)
 
 		Copy16x16Tile(766, temp0)
 		object.rectFlowerFrame++
 
-		GetTableValue(object.rectFlowerDuration, object.rectFlowerFrame, owzSetup_rectFlowerFrameTable)
+		GetTableValue(object.rectFlowerDuration, object.rectFlowerFrame, OWZSetup_rectFlowerFrameTable)
 		object.rectFlowerFrame++
 
 		object.rectFlowerFrame &= 3
@@ -667,12 +374,12 @@ event ObjectUpdate
 	end if
 
 	if object.pointyFlowerDuration < 2
-		GetTableValue(temp0, object.pointyFlowerFrame, owzSetup_pointyFlowerFrameTable)
+		GetTableValue(temp0, object.pointyFlowerFrame, OWZSetup_pointyFlowerFrameTable)
 
 		Copy16x16Tile(767, temp0)
 		object.pointyFlowerFrame++
 
-		GetTableValue(object.pointyFlowerDuration, object.pointyFlowerFrame, owzSetup_pointyFlowerFrameTable)
+		GetTableValue(object.pointyFlowerDuration, object.pointyFlowerFrame, OWZSetup_pointyFlowerFrameTable)
 		object.pointyFlowerFrame++
 
 		object.pointyFlowerFrame &= 15
@@ -680,13 +387,13 @@ event ObjectUpdate
 		object.pointyFlowerDuration--
 	end if
 
-	if owzSetup_hasAchievement == false
+	if OWZSetup_hasAchievement == false
 		if stage.debugMode == false
 			if specialStage.emeralds >= 0x7F
 				// Grant the "Early Bird Special" Achievement, if applicable
 				
 				if options.gameMode == MODE_NOSAVE
-					owzSetup_hasAchievement = true
+					OWZSetup_hasAchievement = true
 					CallNativeFunction2(SetAchievement, ACHIEVEMENT_EARLYBIRDSPECIAL, 100)
 				end if
 
@@ -695,7 +402,7 @@ event ObjectUpdate
 					arrayPos1 <<= 3
 					arrayPos1 += 4
 					if saveRAM[arrayPos1] < 20 // Make sure our save file hasn't been completed yet, you have to play by the rules and do it on the first go!
-						owzSetup_hasAchievement = true
+						OWZSetup_hasAchievement = true
 						CallNativeFunction2(SetAchievement, ACHIEVEMENT_EARLYBIRDSPECIAL, 100)
 					end if
 				end if
@@ -711,13 +418,13 @@ event ObjectStartup
 		// To accommodate the different music, there are also separate speedup and slowdown functions for each track
 
 		if options.vsMode == false
-			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P)
-			SpeedUpMusic = owzSetup_SpeedUpMusic1P
-			SlowDownMusic = owzSetup_SlowDownMusic1P
+			SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P)
+			SpeedUpMusic = OWZSetup_SpeedUpMusic1P
+			SlowDownMusic = OWZSetup_SlowDownMusic1P
 		else
-			SetMusicTrack("OceanWind2.ogg", TRACK_STAGE, MUSIC_LOOP_owz_2P)
-			SpeedUpMusic = owzSetup_SpeedUpMusic2P
-			SlowDownMusic = owzSetup_SlowDownMusic2P
+			SetMusicTrack("OceanWind2.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_2P)
+			SpeedUpMusic = OWZSetup_SpeedUpMusic2P
+			SlowDownMusic = OWZSetup_SlowDownMusic2P
 		end if
 	else
 		// In the Boss Attack version of the state, play the DEZ track instead
@@ -727,12 +434,12 @@ event ObjectStartup
 	end if
 
 #platform: USE_ORIGINS
-	// In Mission Mode, disregard the previous code and always play owz 1P
+	// In Mission Mode, disregard the previous code and always play OWZ 1P
 	// (The Mission stages are all on the Bonus stage list, which triggers the DEZ music code)
 	if game.playMode == BOOT_PLAYMODE_MISSION
-		SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_owz_1P)
-		SpeedUpMusic = owzSetup_SpeedUpMusic1P
-		SlowDownMusic = owzSetup_SlowDownMusic1P
+		SetMusicTrack("OceanWind.ogg", TRACK_STAGE, MUSIC_LOOP_OWZ_1P)
+		SpeedUpMusic = OWZSetup_SpeedUpMusic1P
+		SlowDownMusic = OWZSetup_SlowDownMusic1P
 	end if
 #endplatform
 
@@ -745,40 +452,15 @@ event ObjectStartup
 	while arrayPos0 < 576
 		temp0 = arrayPos0
 		temp0 &= 0x3F
-		GetTableValue(stage.deformationData2[arrayPos0], temp0, owzSetup_deformationTable)
+		GetTableValue(stage.deformationData2[arrayPos0], temp0, OWZSetup_deformationTable)
 		arrayPos0++
 	loop
 
-	object[SLOT_ZONESETUP].type = TypeName[owz Setup]
+	object[SLOT_ZONESETUP].type = TypeName[OWZ Setup]
 	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
 
 	// Reset the boss flash colour
 	SetPaletteEntry(0, 192, 0x000000)
-
-	if options.attractMode == true
-		switch stage.playerListPos
-		case PLAYER_SONIC_ALONE
-			Player_attractTable = owzSetup_replay_attract_S
-			Player_attractTableSize = 110
-			Player_attractDuration = 1620
-			break
-			
-		case PLAYER_TAILS_ALONE
-			Player_attractTable = owzSetup_replay_attract_T
-			Player_attractTableSize = 318
-			Player_attractDuration = 1800
-			break
-			
-		case PLAYER_KNUX_ALONE
-			Player_attractTable = owzSetup_replay_attract_K
-			Player_attractTableSize = 138
-			Player_attractDuration = 1800
-			break
-			
-		end switch
-		
-		CallFunction(Player_SetupAttractDemo)
-	end if
 end event
 
 
